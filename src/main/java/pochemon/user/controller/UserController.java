@@ -7,7 +7,7 @@ import pochemon.user.service.UserService;
 import java.util.List;
 
 @RestController 
-@RequestMapping("/user")
+@RequestMapping("/users")
 @CrossOrigin
 public class UserController {
 
@@ -42,7 +42,7 @@ public class UserController {
 		return userService.authenticateUser(username, password);
 	}
 	
-	@GetMapping("/all")
+	@GetMapping()
 	public List<UserDTO> getAllUsers() {
 		return userService.getAllUsers();
 	}
