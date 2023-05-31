@@ -27,14 +27,5 @@ public class User {
 	String firstName;
 	
 	String email;
-	
-	@OneToMany(mappedBy = "user")
-	List<Card> cardList;
-	
-	@OneToMany(mappedBy = "user")
-    List<StoreOrder> storeOrder;
-	
-	@OneToMany(mappedBy = "user")
-    List<StoreTransaction> storeTransaction;
 
 }

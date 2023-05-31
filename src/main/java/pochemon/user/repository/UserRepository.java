@@ -1,7 +1,7 @@
 package pochemon.user.repository;
 
-import com.entity.User;
 import org.springframework.data.repository.CrudRepository;
+import pochemon.user.entity.User;
 
 import java.util.List;
 

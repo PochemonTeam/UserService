@@ -1,6 +1,7 @@
 package pochemon.user.controller;
 
 import org.springframework.web.bind.annotation.*;
+import pochemon.dto.UserDTO;
 import pochemon.user.service.UserService;
 
 import java.util.List;

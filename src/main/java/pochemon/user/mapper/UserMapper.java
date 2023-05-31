@@ -1,11 +1,10 @@
 package pochemon.user.mapper;
 
-import java.util.List;
-
 import org.mapstruct.Mapper;
+import pochemon.dto.UserDTO;
+import pochemon.user.entity.User;
 
-import com.dto.UserDTO;
-import com.entity.User;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
