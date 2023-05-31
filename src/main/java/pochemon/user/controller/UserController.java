@@ -7,7 +7,7 @@ import pochemon.user.service.UserService;
 import java.util.List;
 
 @RestController 
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @CrossOrigin
 public class UserController {
 

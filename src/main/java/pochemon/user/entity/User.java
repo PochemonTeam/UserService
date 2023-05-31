@@ -18,8 +18,6 @@ public class User {
 	
 	String login;
 	
-	String pwd;
-	
 	Float account;
 	
 	String lastName;
