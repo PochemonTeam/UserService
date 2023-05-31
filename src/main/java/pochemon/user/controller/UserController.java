@@ -2,6 +2,7 @@ package pochemon.user.controller;
 
 import org.springframework.web.bind.annotation.*;
 import pochemon.dto.UserDTO;
+import pochemon.dto.UserTokenDTO;
 import pochemon.user.service.UserService;
 
 import java.util.List;
@@ -38,7 +39,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/auth")
-	public Boolean authentication(@RequestAttribute String username, @RequestAttribute String password) {
+	public UserTokenDTO authentication(@RequestAttribute String username, @RequestAttribute String password) {
 		return userService.authenticateUser(username, password);
 	}
 	

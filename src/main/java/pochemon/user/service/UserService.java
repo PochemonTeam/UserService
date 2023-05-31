@@ -3,6 +3,8 @@ package pochemon.user.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pochemon.dto.UserDTO;
+import pochemon.dto.UserTokenDTO;
+import pochemon.service.AuthWebService;
 import pochemon.user.entity.User;
 import pochemon.user.mapper.UserMapper;
 import pochemon.user.repository.UserRepository;
@@ -11,12 +13,15 @@ import java.util.List;
 
 @Service
 public class UserService {
-
-	@Autowired
 	UserMapper userMapper;
-
-	@Autowired
 	UserRepository userRepository;
+	AuthWebService authWebService;
+
+	public UserService(UserMapper userMapper, UserRepository userRepository) {
+		this.userMapper = userMapper;
+		this.userRepository = userRepository;
+		this.authWebService = new AuthWebService();
+	}
 
 	public UserDTO getUserById(Integer id) {
 		return userMapper.toUserDTO(userRepository.findById(id).orElse(null));
@@ -28,7 +33,10 @@ public class UserService {
 
 	public Boolean addUser(UserDTO userDto) {
 		if (userDto != null) {
+			// Save le user dans la base de données
 			userRepository.save(userMapper.toUser(userDto));
+			// Appel le AuthService et enregistre l'association user/password
+			authWebService.register(userDto.getLogin(), userDto.getPwd());
 			return true;
 		}
 		return false;
@@ -51,7 +59,14 @@ public class UserService {
 		return true;
 	}
 
-	public Boolean authenticateUser(String username, String password) {
-		return userRepository.existsByLoginAndPwd(username, password);
+	public UserTokenDTO authenticateUser(String username, String password) {
+		UserTokenDTO userTokenDTO = new UserTokenDTO();
+		User user = userRepository.findByLogin(username);
+		if(user != null) {
+			String token = authWebService.login(username, password);
+			userTokenDTO.setUser(userMapper.toUserDTO(user));
+			userTokenDTO.setToken(token);
+		}
+		return userTokenDTO;
 	}
 }
