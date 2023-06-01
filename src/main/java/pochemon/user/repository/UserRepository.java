@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
     List<User> findAll();
-    Boolean existsByLoginAndPwd(String login, String password);
     User findByLogin(String login);
 }
