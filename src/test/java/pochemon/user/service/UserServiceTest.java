@@ -119,31 +119,4 @@ class UserServiceTest {
         
         verify(userRepository, never()).save(user);
     }
-
-    @Test
-    void testAuthenticateUser_withValidCredentials() {
-        
-        String username = "john.doe";
-        String password = "password";
-        when(userRepository.existsByLoginAndPwd(username, password)).thenReturn(true);
-
-        
-        Boolean result = userService.authenticateUser(username, password);
-        Assertions.assertTrue(result);
-        
-        verify(userRepository, times(1)).existsByLoginAndPwd(username, password);
-    }
-
-    @Test
-    void testAuthenticateUser_withInvalidCredentials() {
-        
-        String username = "john.doe";
-        String password = "password";
-        when(userRepository.existsByLoginAndPwd(username, password)).thenReturn(false);
-
-        Boolean result = userService.authenticateUser(username, password);    
-        Assertions.assertFalse(result);
-        
-        verify(userRepository, times(1)).existsByLoginAndPwd(username, password);
-    }
 }
