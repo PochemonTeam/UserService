@@ -1,15 +1,15 @@
 package pochemon.user.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import pochemon.dto.UserDTO;
 import pochemon.dto.UserTokenDTO;
 import pochemon.service.AuthWebService;
 import pochemon.user.entity.User;
 import pochemon.user.mapper.UserMapper;
 import pochemon.user.repository.UserRepository;
-
-import java.util.List;
 
 @Service
 public class UserService {
