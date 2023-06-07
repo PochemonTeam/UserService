@@ -1,7 +1,9 @@
 package pochemon.user.service;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import pochemon.dto.UserDTO;
@@ -11,6 +13,7 @@ import pochemon.user.entity.User;
 import pochemon.user.mapper.UserMapper;
 import pochemon.user.repository.UserRepository;
 
+@Slf4j
 @Service
 public class UserService {
 	UserMapper userMapper;
@@ -36,7 +39,12 @@ public class UserService {
 			// Save le user dans la base de données
 			userRepository.save(userMapper.toUser(userDto));
 			// Appel le AuthService et enregistre l'association user/password
-			authWebService.register(userDto.getLogin(), userDto.getPwd());
+			try {
+				authWebService.register(userDto.getLogin(), userDto.getPwd());
+			} catch (URISyntaxException e) {
+				log.error(e.getMessage());
+				return false;
+			}
 			return true;
 		}
 		return false;
@@ -64,6 +72,7 @@ public class UserService {
 		User user = userRepository.findByLogin(username);
 		if(user != null) {
 			String token = authWebService.login(username, password);
+			log.info("TEMPORARY: token : ", token);
 			userTokenDTO.setUser(userMapper.toUserDTO(user));
 			userTokenDTO.setToken(token);
 		}
